@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -11,6 +12,7 @@ const setupAndStartServer = async () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use("/api", apiRoutes);
+  app.use(morgan("combined"));
 
   app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
