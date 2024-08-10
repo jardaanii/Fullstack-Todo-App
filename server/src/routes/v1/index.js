@@ -1,12 +1,13 @@
 const express = require("express");
 const { createTodo, updateTodo } = require("../../utils/types");
+const { z } = require("zod");
 const { Todo } = require("../../repository/db");
 const router = express.Router();
 
 router.post("/todo", async (req, res) => {
   try {
     const createPayload = req.body;
-    const parsedPayload = createTodo.safeparse(createPayload);
+    const parsedPayload = createTodo.safeParse(createPayload);
     if (!parsedPayload.success) {
       return res.status(411).json({
         message: "You sent the wrong credentials",
@@ -49,7 +50,7 @@ router.get("/todos", async (req, res) => {
 router.put("/completed", async (req, res) => {
   try {
     const updatePayload = req.body;
-    const parsedPayload = updateTodo.safeparse(updatePayload);
+    const parsedPayload = updateTodo.safeParse(updatePayload);
     if (!parsedPayload.success) {
       return res.status(411).json({
         message: "You sent the wrong todo id",
