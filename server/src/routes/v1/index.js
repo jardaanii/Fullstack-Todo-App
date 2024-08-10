@@ -21,6 +21,12 @@ router.post("/todo", async (req, res) => {
     });
     await todo.save();
     return res.status(200).json({
+      todo: {
+        _id: todo._id.toString(),
+        title: todo.title,
+        description: todo.description,
+        completed: false,
+      },
       message: "Created the todo successfully",
     });
   } catch (error) {
@@ -35,7 +41,7 @@ router.get("/todos", async (req, res) => {
   try {
     const todos = await Todo.find({});
     return res.status(200).json({
-      data: todos,
+      todos: todos,
       success: true,
       message: "Successfully fetched all the todos",
     });
@@ -58,6 +64,7 @@ router.put("/completed", async (req, res) => {
     }
     const { id } = updatePayload;
     await Todo.updateOne({ _id: id }, { completed: true });
+
     return res.status(200).json({
       success: true,
       message: "Successfully marked the todo as completed",

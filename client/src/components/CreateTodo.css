@@ -1,0 +1,59 @@
+.create-todo-container {
+  display: flex;
+  flex-direction: column; /* Ensure elements are stacked vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center;
+  align-items: center;
+  background-color: rgb(195, 215, 231);
+  padding: 70px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-title {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 24px; /* Increased font size */
+  font-weight: bold; /* Make the title bold for better emphasis */
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Make input groups full width */
+  max-width: 400px;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 18px; /* Increased font size for labels */
+}
+
+.input-group input {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px; /* Increased font size for input text */
+}
+
+.submit-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 20px; /* Increased padding for larger button */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px; /* Increased font size for button text */
+  transition: background-color 0.3s;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}

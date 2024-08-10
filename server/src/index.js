@@ -7,7 +7,7 @@ const apiRoutes = require("./routes/index");
 const { PORT } = require("./config/server-config");
 
 const app = express();
-
+app.use(cors());
 const setupAndStartServer = async () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
