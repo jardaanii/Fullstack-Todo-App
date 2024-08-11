@@ -32,3 +32,26 @@
   border-radius: 4px;
   cursor: pointer;
 }
+@media (max-width: 600px) {
+  .todos-container {
+    gap: 10px;
+  }
+
+  .todo-card {
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  .todo-title {
+    font-size: 1.2em;
+  }
+
+  .todo-description {
+    font-size: 0.9em;
+  }
+
+  .todo-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}

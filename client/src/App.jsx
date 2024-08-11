@@ -7,7 +7,7 @@ function App() {
   const handleClick = async (todo) => {
     const { title, description } = todo;
 
-    const response = await fetch("http://localhost:3000/api/v1/todo", {
+    const response = await fetch("http://192.168.0.198:3000/api/v1/todo", {
       method: "POST", // Method type
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/v1/todos");
+        const response = await fetch("http://192.168.0.198:3000/api/v1/todos");
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -40,7 +40,7 @@ function App() {
     fetchTodos();
   }, []);
   const flipCompleted = async (index) => {
-    await fetch("http://localhost:3000/api/v1/completed", {
+    await fetch("http://192.168.0.198:3000/api/v1/completed", {
       method: "PUT", // Method type
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ function App() {
       }),
     });
 
-    const response = await fetch("http://localhost:3000/api/v1/todos");
+    const response = await fetch("http://192.168.0.198:3000/api/v1/todos");
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
