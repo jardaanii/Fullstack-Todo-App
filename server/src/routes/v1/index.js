@@ -8,6 +8,7 @@ const { createTodo, updateTodo, userTodos } = require("../../utils/types");
 const { validateUser, validateToken } = require("../../middlewares/index");
 const { jwtPassword, SALT } = require("../../config/server-config");
 const { Todo, User } = require("../../repository/db");
+const { sendMail } = require("../../utils/sendMail");
 const router = express.Router();
 
 //function verifies the password
@@ -36,24 +37,39 @@ router.post("/signup", validateUser, async (req, res) => {
   const parsedPayload = userTodos.safeParse(req.body);
   if (!parsedPayload.success) {
     return res.status(411).json({
+      success: false,
       message: "You sent the wrong credentials",
     });
   }
+
   const username = req.body.username;
   const plainPassword = req.body.password;
+
+  const userr = await User.findOne({ username: username });
+  if (userr) {
+    return res.status(403).json({
+      success: false,
+      message: "User already exists",
+    });
+  }
+
   const hashedPassword = await bcrypt.hash(plainPassword, SALT);
   const user = new User({
     username: username,
     password: hashedPassword,
   });
   await user.save();
+
+  sendMail(username);
+
   return res.status(200).json({
+    success: true,
     message: "User created successfully",
   });
 });
 
 //Sign in Route gives the user todos and returns a bearer token
-router.get("/signin", validateUser, async (req, res) => {
+router.post("/signin", validateUser, async (req, res) => {
   const parsedPayload = userTodos.safeParse(req.body);
   if (!parsedPayload.success) {
     return res.status(411).json({
@@ -68,7 +84,8 @@ router.get("/signin", validateUser, async (req, res) => {
 
   if (user === null) {
     return res.status(403).json({
-      msg: "User doesnt exist in our in memory db",
+      success: false,
+      message: "User doesnt exist in our in memory db",
     });
   }
   const hashedPassword = user.password;
