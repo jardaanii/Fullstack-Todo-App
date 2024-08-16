@@ -16,6 +16,14 @@ const validateUser = (req, res, next) => {
 };
 
 const validateToken = async (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(400).json({
+      success: false,
+      data: {},
+      message: "Something went wrong",
+      err: "You are not authenticated",
+    });
+  }
   const token = req.headers.authorization.split(" ")[1];
 
   if (!token) {
